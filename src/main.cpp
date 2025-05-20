@@ -113,7 +113,7 @@ int main() {
 
         	sf::CircleShape circle(particle.radius); // Make particles big
 
-        	if (particle.resize) { // If particles radius does not change with velocity, change their color based on mass
+        	if (particle.mass != particle.radius) { // If particle radius differs from mass, draw it with a red saturation based on its density (0-255)
         		circle.setFillColor(sf::Color(255, 255.0f - particle.mass, 255.0f - particle.mass));
         	} else {
 				circle.setFillColor(particle.color);
