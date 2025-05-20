@@ -16,6 +16,7 @@ public:
 
 	sf::Color color = sf::Color::White;
 	bool isStatic = false; // Determines whether particle can be moved by other particles in simulation
+	bool resize = false;
 
 	static inline const float G = 9.81f;
 
@@ -25,7 +26,7 @@ public:
 	Particle(float x, float y, float mass): x(x), y(y), mass(mass), radius(mass) {}
 	Particle(float x, float y, float mass, bool isStatic): x(x), y(y), mass(mass), radius(mass), isStatic(isStatic) {}
 	Particle(float x, float y, float mass, bool isStatic, sf::Color color): x(x), y(y), mass(mass), radius(mass), isStatic(isStatic), color(color) {}
-	Particle(float x, float y, float mass, bool isStatic, sf::Color color, float radius): x(x), y(y), mass(mass), radius(mass), isStatic(isStatic), color(color) {}
+	Particle(float x, float y, float mass, bool isStatic, sf::Color color, float radius): x(x), y(y), mass(mass), radius(radius), isStatic(isStatic), color(color), resize(true) {}
 };
 
 #endif //PARTICLE_H

@@ -25,19 +25,19 @@ void genParticles(std::vector<Particle> &particles, int num_particles) {
 
     std::uniform_real_distribution<float> distX(100.0f, 1820.0f);
     std::uniform_real_distribution<float> distY(100.0f, 980.0f);
-    std::uniform_real_distribution<float> distMass(1.0f, 10.0f);
+    std::uniform_real_distribution<float> distMass(1.0f, 255.0f);
 
     for (int i = 0; i < num_particles; ++i) {
         float x = distX(gen);
         float y = distY(gen);
         float mass = distMass(gen);
 
-        particles.emplace_back(x, y, mass, false, randomColor());
+        particles.emplace_back(x, y, mass, false, randomColor(), 5.0f);
     }
 }
 
 int main() {
-    const float DT = 0.5f;
+    const float DT = 0.1f;
     const float SOFTENING = 100.f; // make this jawnson bigger if particles are going infinity miles per hour
     std::vector<Particle> particles;
 
@@ -110,9 +110,16 @@ int main() {
         window.clear(sf::Color::Black);
 
         for (const Particle& particle : particles) {
-            sf::CircleShape circle(particle.mass); // Make particles big
-            circle.setFillColor(particle.color);
-            circle.setPosition(sf::Vector2f(particle.x - particle.mass, particle.y - particle.mass));
+
+        	sf::CircleShape circle(particle.radius); // Make particles big
+
+        	if (particle.resize) { // If particles radius does not change with velocity, change their color based on mass
+        		circle.setFillColor(sf::Color(255, 255.0f - particle.mass, 255.0f - particle.mass));
+        	} else {
+				circle.setFillColor(particle.color);
+        	}
+
+            circle.setPosition(sf::Vector2f(particle.x - particle.radius, particle.y - particle.radius));
             window.draw(circle);
         }
 
