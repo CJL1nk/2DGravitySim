@@ -60,7 +60,7 @@ int main() {
        // Calculate forces between particles, VERY unoptimized rn but it works
         for (size_t i = 0; i < particles.size(); ++i) {
 
-        	if (particles[i].isStatic == false) { // Skip to next if current particle is static
+        	if (particles[i].isStatic == true) { // Skip to next if current particle is static
         		continue;
         	}
 
