@@ -37,7 +37,7 @@ void genParticles(std::vector<Particle> &particles, int num_particles) {
 }
 
 int main() {
-    const float DT = 1.0f;
+    const float DT = 0.5f;
     const float SOFTENING = 100.f; // make this jawnson bigger if particles are going infinity miles per hour
     std::vector<Particle> particles;
 
