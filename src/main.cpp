@@ -32,7 +32,7 @@ void genParticles(std::vector<Particle> &particles, int num_particles) {
         float y = distY(gen);
         float mass = distMass(gen);
 
-        particles.emplace_back(x, y, mass, false, randomColor());
+        particles.emplace_back(x, y, mass, true, randomColor());
     }
 }
 
@@ -47,7 +47,8 @@ int main() {
 
     genParticles(particles, 500);
 
-	Particle THESUN = Particle(960, 540, 100.0, true, sf::Color(255, 180, 0));
+	Particle THESUN = Particle(960, 540, 100.0f, false, sf::Color(255, 180, 0));
+	THESUN.vx = 100.f;
 	particles.emplace_back(THESUN);
 
     while (window.isOpen()) {
@@ -60,7 +61,7 @@ int main() {
        // Calculate forces between particles, VERY unoptimized rn but it works
         for (size_t i = 0; i < particles.size(); ++i) {
 
-        	if (particles[i].isStatic == true) { // Skip to next if current particle is static
+        	if (particles[i].isMutable == false) { // Skip to next if current particle is not mutable
         		continue;
         	}
 
@@ -89,7 +90,7 @@ int main() {
         // Update velocities and positions
         for (auto& p : particles) {
 
-        	if (p.isStatic == true) {
+        	if (p.isStatic == true) { // Don't allow moving of static objects at all
         		continue;
         	}
 
