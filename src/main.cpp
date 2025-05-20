@@ -45,7 +45,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(windowSize), "Particle Simulation");
     window.setFramerateLimit(100);
 
-    genParticles(particles, 100);
+    genParticles(particles, 500);
 
 	Particle THESUN = Particle(960, 540, 100.0, true, sf::Color(255, 180, 0));
 	particles.emplace_back(THESUN);

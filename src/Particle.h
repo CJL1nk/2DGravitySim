@@ -12,15 +12,20 @@ public:
 	float ax = 0, ay = 0; // Acceleration
     float mass = 1.0;
 
+	float radius;
+
 	sf::Color color = sf::Color::White;
 	bool isStatic = false; // Determines whether particle can be moved by other particles in simulation
 
 	static inline const float G = 9.81f;
 
-	Particle(): x(0.0f), y(0.0f), mass(1.0f) {}
-	Particle(float x, float y, float mass): x(x), y(y), mass(mass) {}
-	Particle(float x, float y, float mass, bool isStatic): x(x), y(y), mass(mass), isStatic(isStatic) {}
-	Particle(float x, float y, float mass, bool isStatic, sf::Color color): x(x), y(y), mass(mass), isStatic(isStatic), color(color) {}
+	Particle(): x(0.0f), y(0.0f), mass(1.0f) {
+		radius = 1.0f;
+	}
+	Particle(float x, float y, float mass): x(x), y(y), mass(mass), radius(mass) {}
+	Particle(float x, float y, float mass, bool isStatic): x(x), y(y), mass(mass), radius(mass), isStatic(isStatic) {}
+	Particle(float x, float y, float mass, bool isStatic, sf::Color color): x(x), y(y), mass(mass), radius(mass), isStatic(isStatic), color(color) {}
+	Particle(float x, float y, float mass, bool isStatic, sf::Color color, float radius): x(x), y(y), mass(mass), radius(mass), isStatic(isStatic), color(color) {}
 };
 
 #endif //PARTICLE_H
