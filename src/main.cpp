@@ -41,13 +41,13 @@ int main() {
     const float SOFTENING = 100.f; // make this jawnson bigger if particles are going infinity miles per hour
     std::vector<Particle> particles;
 
-    sf::Vector2u windowSize = sf::Vector2u(1920, 1440);
+    sf::Vector2u windowSize = sf::Vector2u(1920, 1080);
     sf::RenderWindow window(sf::VideoMode(windowSize), "Particle Simulation");
     window.setFramerateLimit(100);
 
     genParticles(particles, 500);
 
-	Particle THESUN = Particle(960, 690, 100.0f, false, sf::Color(255, 180, 0));
+	Particle THESUN = Particle(960, 540, 100.0f, false, sf::Color(255, 180, 0));
 	THESUN.isStatic = true;
 	particles.emplace_back(THESUN);
 
