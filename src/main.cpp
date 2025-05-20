@@ -47,7 +47,7 @@ int main() {
 
     genParticles(particles, 500);
 
-	Particle THESUN = Particle(960.0f, 540.0f, 100.0f, false, sf::Color(255, 190, 0));
+	Particle THESUN = Particle(960.0f, 540.0f, 500.0f, false, sf::Color(255, 190, 0), 100.f);
 	THESUN.isStatic = true;
 	particles.push_back(THESUN);
 
@@ -132,10 +132,24 @@ int main() {
             if (event->is<sf::Event::Closed>()) window.close();
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) window.close();
 
-        	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+        	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) { // Press space to make everything crazy
+        		std::random_device rd;
+        		std::mt19937 gen(rd());
+        		std::uniform_int_distribution<> distrib(-10, 10);
+
         		for (auto& p : particles) {
-        			p.vx *= rand();
-        			p.vy *= rand();
+        			p.vx *= distrib(gen);
+        			p.vy *= distrib(gen);
+        		}
+        	}
+        	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Backspace)) { // Press space to make everything anti-crazy
+        		std::random_device rd;
+        		std::mt19937 gen(rd());
+        		std::uniform_int_distribution<> distrib(1, 10);
+
+        		for (auto& p : particles) {
+        			p.vx /= distrib(gen);
+        			p.vy /= distrib(gen);
         		}
         	}
         }
