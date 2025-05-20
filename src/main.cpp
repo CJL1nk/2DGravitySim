@@ -28,11 +28,11 @@ void genParticles(std::vector<Particle> &particles, int num_particles) {
     std::uniform_real_distribution<float> distMass(1.0f, 10.0f);
 
     for (int i = 0; i < num_particles; ++i) {
-       float x = distX(gen);
-       float y = distY(gen);
-       float mass = distMass(gen);
+        float x = distX(gen);
+        float y = distY(gen);
+        float mass = distMass(gen);
 
-       particles.emplace_back(x, y, mass, randomColor());
+        particles.emplace_back(x, y, mass, false, randomColor());
     }
 }
 
@@ -47,7 +47,7 @@ int main() {
 
     genParticles(particles, 100);
 
-	Particle THESUN = Particle(960, 540, 100.0, sf::Color(255, 180, 0));
+	Particle THESUN = Particle(960, 540, 100.0, true, sf::Color(255, 180, 0));
 	particles.emplace_back(THESUN);
 
     while (window.isOpen()) {
@@ -59,6 +59,11 @@ int main() {
 
        // Calculate forces between particles, VERY unoptimized rn but it works
         for (size_t i = 0; i < particles.size(); ++i) {
+
+        	if (particles[i].isStatic == false) { // Skip to next if current particle is static
+        		continue;
+        	}
+
             for (size_t j = 0; j < particles.size(); ++j) {
                 if (i == j) continue;
 
@@ -83,17 +88,22 @@ int main() {
 
         // Update velocities and positions
         for (auto& p : particles) {
-           p.vx += p.ax * DT;
-           p.vy += p.ay * DT;
 
-           p.x += p.vx * DT;
-           p.y += p.vy * DT;
+        	if (p.isStatic == true) {
+        		continue;
+        	}
 
-           // Keep particles within window
-           if (p.x < 0) { p.x = 0; p.vx *= -0.5f; }
-           if (p.x > windowSize.x) { p.x = windowSize.x; p.vx *= -0.5f; }
-           if (p.y < 0) { p.y = 0; p.vy *= -0.5f; }
-           if (p.y > windowSize.y) { p.y = windowSize.y; p.vy *= -0.5f; }
+            p.vx += p.ax * DT;
+            p.vy += p.ay * DT;
+
+            p.x += p.vx * DT;
+            p.y += p.vy * DT;
+
+            // Keep particles within window
+            if (p.x < 0) { p.x = 0; p.vx *= -0.5f; }
+            if (p.x > windowSize.x) { p.x = windowSize.x; p.vx *= -0.5f; }
+            if (p.y < 0) { p.y = 0; p.vy *= -0.5f; }
+            if (p.y > windowSize.y) { p.y = windowSize.y; p.vy *= -0.5f; }
         }
 
         // Drawing
