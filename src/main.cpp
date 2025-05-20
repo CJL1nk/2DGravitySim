@@ -25,14 +25,14 @@ void genParticles(std::vector<Particle> &particles, int num_particles) {
 
     std::uniform_real_distribution<float> distX(100.0f, 1820.0f);
     std::uniform_real_distribution<float> distY(100.0f, 980.0f);
-    std::uniform_real_distribution<float> distMass(1.0f, 255.0f);
+    std::uniform_real_distribution<float> distMass(1.0f, 15.0f);
 
     for (int i = 0; i < num_particles; ++i) {
         float x = distX(gen);
         float y = distY(gen);
         float mass = distMass(gen);
 
-        particles.emplace_back(x, y, mass, false, randomColor(), 5.0f);
+        particles.emplace_back(x, y, mass, false, randomColor());
     }
 }
 
