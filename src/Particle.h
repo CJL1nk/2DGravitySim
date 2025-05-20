@@ -24,9 +24,9 @@ public:
 		radius = 1.0f;
 	}
 	Particle(float x, float y, float mass): x(x), y(y), mass(mass), radius(mass) {}
-	Particle(float x, float y, float mass, bool isStatic): x(x), y(y), mass(mass), radius(mass), isStatic(isStatic) {}
+	Particle(float x, float y, float mass, bool isMutable): x(x), y(y), mass(mass), radius(mass), isMutable(isMutable) {}
 	Particle(float x, float y, float mass, bool isMutable, sf::Color color): x(x), y(y), mass(mass), radius(mass), isMutable(isMutable), color(color) {}
-	Particle(float x, float y, float mass, bool isStatic, sf::Color color, float radius): x(x), y(y), mass(mass), radius(radius), isStatic(isStatic), color(color) {}
+	Particle(float x, float y, float mass, bool isMutable, sf::Color color, float radius): x(x), y(y), mass(mass), radius(radius), isMutable(isMutable), color(color) {}
 };
 
 #endif //PARTICLE_H

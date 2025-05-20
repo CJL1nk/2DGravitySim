@@ -37,7 +37,7 @@ void genParticles(std::vector<Particle> &particles, int num_particles) {
 }
 
 int main() {
-    const float DT = 0.1f;
+    const float DT = 0.25f;
     const float SOFTENING = 100.f; // make this jawnson bigger if particles are going infinity miles per hour
     std::vector<Particle> particles;
 
@@ -47,9 +47,9 @@ int main() {
 
     genParticles(particles, 500);
 
-	Particle THESUN = Particle(960, 540, 100.0f, false, sf::Color(255, 180, 0));
+	Particle THESUN = Particle(960.0f, 540.0f, 100.0f, false, sf::Color(255, 190, 0));
 	THESUN.isStatic = true;
-	particles.emplace_back(THESUN);
+	particles.push_back(THESUN);
 
     while (window.isOpen()) {
 
@@ -131,6 +131,13 @@ int main() {
             // Request for closing the window
             if (event->is<sf::Event::Closed>()) window.close();
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) window.close();
+
+        	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+        		for (auto& p : particles) {
+        			p.vx *= rand();
+        			p.vy *= rand();
+        		}
+        	}
         }
     }
 
